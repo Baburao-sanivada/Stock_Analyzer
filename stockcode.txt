@@ -1,0 +1,50 @@
+from selenium import webdriver
+from selenium.webdriver.common import keys
+from selenium.webdriver.support.ui import Select
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import time
+count=0
+while(1):
+    driver = webdriver.Chrome("C:\Program Files (x86)")
+    driver.get("https://www.google.com/search?q=online+bitcoin+price&rlz=1C1CHBF_enIN978IN978&oq=online+&aqs=chrome.2.69i59j69i57j69i59l2j0i433i512l2j46i199i433i465i512j0i433i512l3.3520j0j15&sourceid=chrome&ie=UTF-8")
+    driver.maximize_window()
+    time.sleep(5)
+    p =  driver.find_element(By.CLASS_NAME,'pclqee')
+    driver.quit()
+    ps =p.text.split('.')
+    print(ps)
+    print(p.text)
+    ns = filter(str.isdigit, ps[0])
+    ns = "".join(ns)
+    ins = int(ns)
+    print(ins)
+    basePrice = 3800000
+    count=count+1
+    if(count==2):
+        break
+    if(ins>basePrice):
+        driver.get("https://accounts.google.com/signin/v2/identifier?continue=https%3A%2F%2Fmail.google.com%2Fmail%2F&service=mail&sacu=1&rip=1&flowName=GlifWebSignIn&flowEntry=ServiceLogin")
+        # time.sleep(5)
+        user = driver.find_element(By.NAME,"identifier")
+        user.send_keys('babuu1166@gmail.com')
+        user.send_keys(Keys.RETURN)
+        time.sleep(2)
+        pwd = driver.find_element(By.CSS_SELECTOR,'#password > div.aCsJod.oJeWuf > div > div.Xb9hP > input')
+        pwd.send_keys('BABU@1431166')
+        pwd.send_keys(Keys.RETURN)
+        ele1 = WebDriverWait(driver,4).until(EC.element_to_be_clickable((By.XPATH,"/html/body/div[7]/div[3]/div/div[2]/div[1]/div[1]/div[1]/div/div")))
+        ele1.click()
+        time.sleep(1)
+        to = driver.find_element(By.CSS_SELECTOR,'#\:1cn')
+        to.send_keys('babuu1166@gmail.com')
+        sub = driver.find_element(By.CLASS_NAME,'aoT')
+        sub.send_keys('Alert on Your Base Price')
+        body = driver.find_element(By.ID,':1db')
+        body.send_keys('Current BTC price crossed your Base price..!\n\n Regards:')
+        send = driver.find_element(By.XPATH,'//*[@id=":1bw"]')
+        send.send_keys(Keys.RETURN)
+        time.sleep(10)
+    driver.quit()
